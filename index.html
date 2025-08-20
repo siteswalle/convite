@@ -103,7 +103,40 @@
 
     /* responsive tweaks */
     @media (max-width:720px){.name{font-size:48px}.badge-40-svg{width:100px}.card{padding:16px}.meta .item{width:100%;max-width:100%}.meta .item .text{font-size:18px}.cta{flex-direction:column}.btn{width:100%}}
-    @media (max-width:520px){html,body{padding:12px}.wallpaper{display:none}.stage{max-width:100%}.name{font-size:36px}.title-row{flex-direction:column;align-items:flex-start}.badge-40-svg{display:block;width:84px;margin-top:8px}}
+    
+    /* === MOBILE: centralizar conteúdo e empilhar elementos === */
+    @media (max-width:520px){
+      html,body{padding:12px}
+      .wallpaper{display:none}
+      .stage{max-width:100%}
+      .name{font-size:36px}
+      /* toolbar centralizada e empilhada */
+      .toolbar{flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:10px}
+      /* título e badge centralizados */
+      .title-row{flex-direction:column;align-items:center;text-align:center;gap:10px}
+      .title-row > div{width:100%}
+      .badge-40-wrap{display:block;margin:8px auto 0}
+      .badge-40-svg{width:84px;margin:0 auto;display:block}
+      /* meta: icon acima do texto, tudo centralizado */
+      .meta{align-items:center}
+      .meta .item{
+        width:100%;
+        max-width:420px;
+        justify-content:center;
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        padding:14px;
+        gap:8px;
+      }
+      .meta .item svg{margin:0}
+      .meta .item .text{font-size:18px;font-weight:700}
+      /* botões empilhados e largura full */
+      .cta{flex-direction:column}
+      .btn{width:100%}
+      /* extras empilhados se necessário */
+      .extras{flex-wrap:wrap;justify-content:center}
+    }
 
     /* respect user preferences */
     @media (prefers-reduced-motion:reduce){
