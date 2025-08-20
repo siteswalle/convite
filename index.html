@@ -23,109 +23,139 @@
 
   <!-- Fonte August só será usada no nome -->
   <link href="https://db.onlinewebfonts.com/c/f681630a4a2508b234d715a961045f64?family=August" rel="stylesheet">
-  
+
   <style>
     :root{
-      --bg-1: linear-gradient(180deg,#e9f6ff 0%, #f6fbff 50%, #fff9f2 100%);
-      --glass-1: rgba(255,255,255,0.62);
-      --glass-2: rgba(255,255,255,0.22);
-      /* azul marinho quase preto (gradiente principal) */
-      --accent-a: #081733; /* tom do azul da imagem enviada */
-      --accent-b: #0b2742; /* variação do azul marinho */
-      --muted:#0f1724;
-      --muted-2:rgba(15,23,36,0.9);
-      --radius:18px;
-      --shadow: 0 18px 40px rgba(6,10,20,0.12);
-      --glass-border: rgba(255,255,255,0.35);
-      --item-bg: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+      /* Clube palette */
+      --navy-1: #001f3f; /* deep navy */
+      --navy-2: #002957; /* secondary navy */
+      --accent-gold: #ffd24a; /* accent if needed */
+      --card-bg: #ffffff; /* white card */
+      --card-text: #07243a; /* dark navy for text */
+      --muted-white: rgba(255,255,255,0.95);
+      --radius:12px;
+      --shadow: 0 16px 36px rgba(0,0,0,0.36);
+      --glass-border: rgba(0,41,87,0.08);
+      --item-bg: linear-gradient(180deg,#ffffff,#fbfdff);
     }
 
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:system-ui,Roboto,Arial,sans-serif;background:var(--bg-1);display:flex;align-items:center;justify-content:center;padding:24px;color:var(--muted);}    
-    .stage{max-width:820px;width:100%;position:relative}
-    .wallpaper{position:absolute;inset:-8% -8% -8% -8%;border-radius:26px;overflow:visible;z-index:0}
-    .wallpaper::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg, rgba(0,0,0,0.0), rgba(6,182,212,0.06));z-index:1;pointer-events:none}
-    .wallpaper-img{position: static;left: 50%;top: 50%;width: auto;height: 182%;min-width: 120%;min-height: 53%;transform: translate(-50%,-50%) scale(1.12);object-fit: cover;object-position: center center;}
-    @media (max-width:720px){.wallpaper-img{object-position:center top;height:110%;min-height:110%;transform:translate(-50%,-40%) scale(1.05);filter:blur(10px) saturate(110%);} }
-    @media (max-width:520px){.wallpaper-img{filter:blur(6px) saturate(100%);transform:translate(-50%,-35%) scale(1);height:105%;min-height:105%;} .wallpaper::before{background:linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(246,251,255,0.8) 100%);} }
+    html,body{height:100%;margin:0;font-family:system-ui,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--navy-1),var(--navy-2));display:flex;align-items:center;justify-content:center;padding:24px;color:var(--muted-white);}    
 
-    .card{position:relative;z-index:2;margin:0 auto;border-radius:22px;padding:20px 22px;max-width:720px;background:linear-gradient(180deg,var(--glass-1),var(--glass-2));backdrop-filter:blur(10px) saturate(115%);box-shadow:var(--shadow);border:1.4px solid var(--glass-border);}
-    .toolbar{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:12px}
-    .site{font-size:12px;color:rgba(15,23,36,0.7);font-weight:600;letter-spacing:0.6px}
-    .content{padding:6px 6px 18px}
+    /* background watermark: waves + crossed oars */
+    .bg-decor{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.12}
+    .bg-decor svg{width:100%;height:100%;display:block}
+
+    .stage{max-width:820px;width:100%;position:relative;z-index:2}
+
+    /* white card */
+    .card{position:relative;margin:0 auto;border-radius:12px;padding:18px 18px;max-width:720px;background:var(--card-bg);box-shadow:var(--shadow);border:1px solid var(--glass-border);} 
+    .toolbar{display:flex;align-items:center;justify-content:space-between;padding:8px 6px;border-radius:12px}
+
+    /* small badge/icon area (kept decorative, name removed) */
+    .club-badge{width:56px;height:56px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:linear-gradient(180deg,var(--navy-1),var(--navy-2));box-shadow:inset 0 -6px 12px rgba(0,0,0,0.22);border:2px solid rgba(0,41,87,0.08);flex-shrink:0}
+    .club-badge svg{width:34px;height:34px;display:block}
+
+    .site{font-size:13px;color:var(--navy-2);font-weight:800;letter-spacing:0.6px;display:flex;flex-direction:column}
+    .site .tag{font-size:11px;color:rgba(7,36,54,0.6);font-weight:600}
+
+    .content{padding:6px 6px 14px}
 
     /* Label */
-    .label{display:inline-block;font-size:13px;font-weight:800;color:#FFFFFF;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));padding:6px 14px;border-radius:10px;letter-spacing:8px}
+    .label{display:inline-block;font-size:12px;font-weight:800;color:var(--card-bg);background:linear-gradient(90deg,var(--navy-1),var(--navy-2));padding:6px 12px;border-radius:8px;letter-spacing:6px}
 
-    .title-row{display:flex;align-items:center;gap:26px;flex-wrap:wrap;justify-content:space-between}
+    .title-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between}
 
     /* Nome com August (apenas aqui). Ajustes finos de tipografia. */
-    .name{font-size:64px;color:var(--muted-2);line-height:1.02;margin:6px 0 2px 0;font-weight:600;font-family:'August',system-ui,Roboto,Arial,sans-serif;position:relative;-webkit-text-stroke:0.6px rgba(8,23,51,0.14);}
-    @media (max-width:720px){.name{font-size:48px}}
-    @media (max-width:420px){.name{font-size:36px}}
+    .name{font-size:56px;color:var(--card-text);line-height:1.02;margin:6px 0 2px 0;font-weight:700;font-family:'August',system-ui,Roboto,Arial,sans-serif;position:relative;}   
+    @media (max-width:520px){.name{font-size:32px}}
 
-    .subtitle{font-size:15px;color:rgba(15,23,36,0.65);font-weight:600}
+    .subtitle{font-size:14px;color:rgba(7,36,54,0.72);font-weight:600}
 
+    /* 40 anos: use previous image */
     .badge-40-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:0;border-radius:0;background:transparent;box-shadow:none;border:none;min-width:auto}
-    .badge-40-svg{width:120px;max-width:100%;height:auto;display:block;object-fit:contain;transform:translateY(0);transition:transform .28s ease;position:relative;z-index:2}
-    .badge-40-wrap:hover .badge-40-svg{transform:translateY(-6px) scale(1.03)}
+    .badge-40-svg{width:110px;max-width:100%;height:auto;display:block}
 
-    /* Meta - empilhada, centralizada, com ícones e maior tipografia */
-    .meta{margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:14px}
-    .meta .item{display:inline-flex;align-items:center;gap:12px;padding:12px 18px;border-radius:14px;background:var(--item-bg);border:1px solid rgba(15,23,36,0.04);width:640px;max-width:92%;justify-content:flex-start;transition:box-shadow .23s cubic-bezier(.2,.9,.2,1),transform .22s cubic-bezier(.2,.9,.2,1),opacity .35s;}
-    .meta .item:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(6,10,20,0.08)}
-    .meta .item svg{width:24px;height:24px;flex:0 0 24px;opacity:0.95}
-    .meta .item .text{font-size:20px;font-weight:800;color:var(--muted-2);font-family:system-ui,Roboto,Arial,sans-serif;line-height:1;text-align:left}
+    /* Meta - simplified look */
+    .meta{margin-top:18px;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .meta .item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:var(--item-bg);border:1px solid rgba(0,41,87,0.06);width:640px;max-width:92%;justify-content:flex-start}
+    .meta .item svg{width:22px;height:22px;flex:0 0 22px;opacity:0.95}
+    .meta .item .text{font-size:18px;font-weight:700;color:var(--card-text);font-family:system-ui,Roboto,Arial,sans-serif}
 
-    /* entrance animation (staggered) */
-    .meta .item{opacity:0;transform:translateY(8px)}
-    .meta .item.visible{opacity:1;transform:translateY(0);transition:opacity .45s ease, transform .45s cubic-bezier(.2,.9,.2,1)}
-    .meta .item:nth-child(1){transition-delay:.06s}
-    .meta .item:nth-child(2){transition-delay:.12s}
-    .meta .item:nth-child(3){transition-delay:.18s}
+    /* CTA buttons - nautical style */
+    .cta{display:flex;gap:12px;margin-top:16px}
+    .btn{flex:1;padding:12px 16px;border-radius:12px;text-decoration:none;text-align:center;font-weight:800;display:inline-block;font-size:14px}
+    .btn-primary{background:linear-gradient(90deg,var(--navy-2),var(--navy-1));color:var(--card-bg);border:none;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,41,87,0.06);color:var(--navy-1);font-weight:800}
 
-    /* CTA buttons */
-    .cta{display:flex;gap:12px;margin-top:18px}
-    .btn{flex:1;padding:12px 18px;border-radius:14px;text-decoration:none;text-align:center;font-weight:800;position:relative;display:inline-block;overflow:visible;font-size:15px}
-    .btn:focus{outline:3px solid rgba(8,23,51,0.18);outline-offset:4px}
+    .extras{display:flex;gap:10px;margin-top:10px;align-items:center}
+    .chip{padding:7px 10px;border-radius:999px;background:linear-gradient(90deg,rgba(0,41,87,0.05),rgba(0,95,158,0.03));font-weight:800;font-size:13px;color:var(--navy-1)}
+    .note{margin-top:10px;font-size:13px;color:rgba(7,36,54,0.7)}
+    footer{margin-top:12px;text-align:center;font-size:12px;color:rgba(7,36,54,0.55)}
 
-    .btn-primary{background:linear-gradient(90deg,var(--accent-a),var(--accent-b));background-size:200% 200%;color:white;border:none;box-shadow:0 8px 24px rgba(6,10,20,0.12);transition:transform .03s cubic-bezier(.2,.9,.2,1), filter .18s cubic-bezier(.2,.9,.2,1);animation:gradientMove 3s infinite;}
-    @keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    .btn-primary:hover{transform:translateY(-2px);filter:brightness(1.04)}
-    .btn-primary:active{transform:translateY(1px) scale(0.99);filter:brightness(0.97)}
-    .btn-primary.static{animation:none}
-
-    .btn-ghost{background:transparent;border:1px solid rgba(15,23,36,0.06);color:var(--accent-a)}
-
-    .extras{display:flex;gap:10px;margin-top:12px;align-items:center}
-    .chip{padding:8px 10px;border-radius:999px;background:rgba(255,255,255,0.18);backdrop-filter:blur(4px);font-weight:700;font-size:12px;color:rgba(8,23,51,1)}
-    .note{margin-top:12px;font-size:13px;color:rgba(20,23,36,0.8)}
-    footer{margin-top:14px;text-align:center;font-size:12px;color:rgba(8,23,51,0.6)}
-
-    /* responsive tweaks */
-    @media (max-width:720px){.name{font-size:48px}.badge-40-svg{width:100px}.card{padding:16px}.meta .item{width:100%;max-width:100%}.meta .item .text{font-size:18px}.cta{flex-direction:column}.btn{width:100%}}
-    @media (max-width:520px){html,body{padding:12px}.wallpaper{display:none}.stage{max-width:100%}.name{font-size:36px}.title-row{flex-direction:column;align-items:flex-start}.badge-40-svg{display:block;width:84px;margin-top:8px}}
-
-    /* respect user preferences */
-    @media (prefers-reduced-motion:reduce){
-      .btn-primary{animation:none}
-      .meta .item{transition:none!important;transform:none!important;opacity:1!important}
+    /* ONLY mobile responsive: keep desktop/tablet fixed, apply responsive rules under 520px */
+    @media (max-width:520px){
+      html,body{padding:12px;align-items:flex-start;justify-content:flex-start}
+      .stage{max-width:100%;width:100%;}
+      .card{width:100%;max-width:100%;padding:14px;border-radius:12px}
+      .badge-40-svg{width:78px}
+      .title-row{flex-direction:column;align-items:flex-start;gap:8px}
+      .meta .item{width:100%;max-width:100%;padding:10px 12px}
+      .meta .item .text{font-size:15px}
+      .cta{flex-direction:column;gap:10px}
+      .btn{width:100%}
+      .extras{flex-wrap:wrap}
+      .chip{font-size:13px;padding:7px 10px}
     }
-  
-    /* Overrides: fontes mais finas */
-    .meta .item .text{font-weight:500}
-    .subtitle{font-weight:500}
+
+    /* reduced motion */
+    @media (prefers-reduced-motion:reduce){
+      *{transition:none!important}
+    }
   </style>
 </head>
 <body>
-  <div class="stage">
-    <!-- Wallpaper atualizado para a capa enviada pelo usuário -->
-    <div class="wallpaper" aria-hidden="true"><img src="https://i.ibb.co/7J78V9XF/Captura-de-Tela-2025-08-20-a-s-13-11-28.png" alt="Capa Airton" class="wallpaper-img"/></div>
+  <!-- background decorative SVG: soft waves and crossed oars watermark -->
+  <div class="bg-decor" aria-hidden="true">
+    <svg viewBox="0 0 1440 720" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#001f3f" stop-opacity="1"/><stop offset="1" stop-color="#002957" stop-opacity="1"/></linearGradient>
+      </defs>
+      <rect width="1440" height="720" fill="url(#g1)"/>
+      <!-- soft waves (lighter on navy) -->
+      <g transform="translate(0,420)" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="36">
+        <path d="M0 60 C200 0 400 120 600 60 C800 0 1000 120 1200 60 C1400 0 1600 120 1800 60" />
+      </g>
+      <!-- crossed oars watermark centered-right -->
+      <g transform="translate(980,120) rotate(12) scale(1.05)" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="6">
+        <path d="M0 0 L160 80" stroke-linecap="round"/>
+        <path d="M20 -20 L180 60" stroke-linecap="round"/>
+        <ellipse cx="0" cy="0" rx="10" ry="22" fill="#ffffff" fill-opacity="0.04"/>
+        <ellipse cx="160" cy="80" rx="10" ry="22" fill="#ffffff" fill-opacity="0.04"/>
+      </g>
+    </svg>
+  </div>
 
+  <div class="stage">
     <div class="card" role="region" aria-label="Convite Airton Corrêa Jr">
       <div class="toolbar">
-        <div class="site">Convite Digital</div>
-        <div style="font-size:12px;color:rgba(15,23,36,0.6);font-weight:600">06/09 • 12:00</div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <!-- small decorative badge (kept) -->
+          <div class="club-badge" aria-hidden="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Emblema decorativo">
+              <circle cx="32" cy="32" r="30" fill="#ffffff" />
+              <circle cx="32" cy="32" r="26" fill="#002957" />
+              <g transform="translate(0,0)" fill="#ffffff">
+                <path d="M18 40c6-3 12-3 18 0" opacity="0.9"/>
+                <rect x="30" y="12" width="4" height="22" rx="2"/>
+                <path d="M20 14 L44 38" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+              </g>
+            </svg>
+          </div>
+          <div class="site"><span class="tag">Convite Digital</span></div>
+        </div>
+
+        <div style="font-size:12px;color:rgba(7,36,54,0.7);font-weight:600">06/09 • 12:00</div>
       </div>
 
       <div class="content">
@@ -133,43 +163,37 @@
         <div class="title-row">
           <div>
             <div class="name" data-text="Airton Corrêa Jr">Airton Corrêa Jr</div>
-            <div class="subtitle">Aniversário</div>
+            <div class="subtitle">Aniversário — Azul e Branco</div>
           </div>
 
-          <div style="margin-left:10px;align-self:center" class="badge-40-wrap">
+          <div class="badge-40-wrap">
             <img src="https://i.ibb.co/9H281XNQ/40-ANOS.webp" alt="40-ANOS" class="badge-40-svg" role="img" aria-label="40 anos" />
-            <div class="confetti" aria-hidden="true">
-              <span class="c1"></span>
-              <span class="c2"></span>
-              <span class="c3"></span>
-              <span class="c4"></span>
-            </div>
           </div>
         </div>
 
         <div class="meta" aria-hidden="false">
           <div class="item" role="group" aria-label="06 de Setembro">
-            <!-- Calendar SVG (fills trocados para marinho escuro) -->
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.4"/><path d="M16 3v4M8 3v4" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.4"/><circle cx="12" cy="14" r="2.3" fill="#081733" fill-opacity="0.09" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.2"/></svg>
+            <!-- Calendar SVG (navy) -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="#001f3f" stroke-width="1.6" fill="none"/><path d="M16 3v4M8 3v4" stroke="#001f3f" stroke-width="1.6" stroke-linecap="round"/></svg>
             <span class="text">06 de Setembro</span>
           </div>
 
           <div class="item" role="group" aria-label="12 horas">
             <!-- Clock SVG -->
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.4"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#001f3f" stroke-width="1.6" fill="none"/><path d="M12 7v5l3 3" stroke="#001f3f" stroke-width="1.6" stroke-linecap="round"/></svg>
             <span class="text">12 horas</span>
           </div>
 
           <div class="item" role="group" aria-label="Condomínio Jardins Coimbra">
             <!-- Location SVG -->
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 21s6-4.5 6-10a6 6 0 10-12 0c0 5.5 6 10 6 10z" stroke="currentColor" stroke-opacity="0.95" stroke-width="1.4"/><circle cx="12" cy="11" r="2.5" fill="#081733" fill-opacity="0.09" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.2"/></svg>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 21s6-4.5 6-10a6 6 0 10-12 0c0 5.5 6 10 6 10z" stroke="#001f3f" stroke-width="1.6" fill="none"/><circle cx="12" cy="11" r="2.5" fill="#001f3f" fill-opacity="0.08"/></svg>
             <span class="text">Condomínio Jardins Coimbra</span>
           </div>
         </div>
 
         <div class="cta">
           <a class="btn btn-primary" href="https://wa.me/5591985837117?text=Confirmo%20presen%C3%A7a%20-%20Airton%20Corr%C3%AAa%20Jr%20-%2006%2F09%2012%3A00" data-text="Confirmar no WhatsApp">Confirmar no WhatsApp</a>
-          <a class="btn btn-primary static" href="https://maps.app.goo.gl/rC6DJpF595VsRFNd7" target="_blank" rel="noopener noreferrer" data-text="Ver local">Ver local</a>
+          <a class="btn btn-ghost" href="https://maps.app.goo.gl/rC6DJpF595VsRFNd7" target="_blank" rel="noopener noreferrer" data-text="Ver local">Ver local</a>
         </div>
 
         <div class="extras">
