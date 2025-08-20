@@ -26,12 +26,10 @@
 
   <style>
     :root{
-      /* Clube palette */
-      --navy-1: #001f3f; /* deep navy */
-      --navy-2: #002957; /* secondary navy */
-      --accent-gold: #ffd24a; /* accent if needed */
-      --card-bg: #ffffff; /* white card */
-      --card-text: #07243a; /* dark navy for text */
+      --navy-1: #001f3f;
+      --navy-2: #002957;
+      --card-bg: #ffffff;
+      --card-text: #07243a;
       --muted-white: rgba(255,255,255,0.95);
       --radius:12px;
       --shadow: 0 16px 36px rgba(0,0,0,0.36);
@@ -39,20 +37,17 @@
       --item-bg: linear-gradient(180deg,#ffffff,#fbfdff);
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:system-ui,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--navy-1),var(--navy-2));display:flex;align-items:center;justify-content:center;padding:24px;color:var(--muted-white);}    
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:system-ui,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--navy-1),var(--navy-2));display:flex;align-items:center;justify-content:center;padding:24px;color:var(--muted-white);}    
 
-    /* background watermark: waves + crossed oars */
     .bg-decor{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.12}
     .bg-decor svg{width:100%;height:100%;display:block}
 
     .stage{max-width:820px;width:100%;position:relative;z-index:2}
 
-    /* white card */
-    .card{position:relative;margin:0 auto;border-radius:12px;padding:18px 18px;max-width:720px;background:var(--card-bg);box-shadow:var(--shadow);border:1px solid var(--glass-border);} 
-    .toolbar{display:flex;align-items:center;justify-content:space-between;padding:8px 6px;border-radius:12px}
+    .card{margin:0 auto;border-radius:12px;padding:18px;max-width:720px;background:var(--card-bg);box-shadow:var(--shadow);border:1px solid var(--glass-border);} 
+    .toolbar{display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:12px}
 
-    /* small badge/icon area (kept decorative, name removed) */
     .club-badge{width:56px;height:56px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:linear-gradient(180deg,var(--navy-1),var(--navy-2));box-shadow:inset 0 -6px 12px rgba(0,0,0,0.22);border:2px solid rgba(0,41,87,0.08);flex-shrink:0}
     .club-badge svg{width:34px;height:34px;display:block}
 
@@ -61,72 +56,60 @@
 
     .content{padding:6px 6px 14px}
 
-    /* Label */
-    .label{display:inline-block;font-size:12px;font-weight:800;color:var(--card-bg);background:linear-gradient(90deg,var(--navy-1),var(--navy-2));padding:6px 12px;border-radius:8px;letter-spacing:6px}
+    .label{display:block;width:max-content;margin:0 auto 12px;font-size:12px;font-weight:800;color:var(--card-bg);background:linear-gradient(90deg,var(--navy-1),var(--navy-2));padding:6px 12px;border-radius:8px;letter-spacing:6px}
 
-    .title-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between}
+    .title-row{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:20px;text-align:center;flex-wrap:wrap}.title-row > div{display:flex;flex-direction:column;align-items:center;justify-content:center} 
 
-    /* Nome com August (apenas aqui). Ajustes finos de tipografia. */
-    .name{font-size:56px;color:var(--card-text);line-height:1.02;margin:6px 0 2px 0;font-weight:700;font-family:'August',system-ui,Roboto,Arial,sans-serif;position:relative;}   
+    .name{font-size:56px;color:var(--card-text);line-height:1.02;margin:6px 0 2px;font-weight:700;font-family:'August',system-ui,Roboto,Arial,sans-serif;position:relative;}   
     @media (max-width:520px){.name{font-size:32px}}
 
     .subtitle{font-size:14px;color:rgba(7,36,54,0.72);font-weight:600}
 
-    /* 40 anos: use previous image */
-    .badge-40-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:0;border-radius:0;background:transparent;box-shadow:none;border:none;min-width:auto}
+    .badge-40-wrap{display:inline-flex;align-items:center;justify-content:center;background:transparent;min-width:auto}
     .badge-40-svg{width:110px;max-width:100%;height:auto;display:block}
 
-    /* Meta - simplified look */
     .meta{margin-top:18px;display:flex;flex-direction:column;align-items:center;gap:12px}
-    .meta .item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:var(--item-bg);border:1px solid rgba(0,41,87,0.06);width:640px;max-width:92%;justify-content:flex-start}
+    .meta .item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:var(--item-bg);border:1px solid rgba(0,41,87,0.06);width:640px;max-width:92%;justify-content:flex-start;opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+    .meta .item.visible{opacity:1;transform:translateY(0)}
     .meta .item svg{width:22px;height:22px;flex:0 0 22px;opacity:0.95}
-    .meta .item .text{font-size:18px;font-weight:700;color:var(--card-text);font-family:system-ui,Roboto,Arial,sans-serif}
+    .meta .item .text{font-size:18px;font-weight:700;color:var(--card-text)}
 
-    /* CTA buttons - nautical style */
     .cta{display:flex;gap:12px;margin-top:16px}
-    .btn{flex:1;padding:12px 16px;border-radius:12px;text-decoration:none;text-align:center;font-weight:800;display:inline-block;font-size:14px}
-    .btn-primary{background:linear-gradient(90deg,var(--navy-2),var(--navy-1));color:var(--card-bg);border:none;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
-    .btn-ghost{background:transparent;border:1px solid rgba(0,41,87,0.06);color:var(--navy-1);font-weight:800}
+    .btn{flex:1;padding:12px 16px;border-radius:12px;text-decoration:none;text-align:center;font-weight:800;font-size:14px;transition:transform .2s ease,box-shadow .2s ease}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.12)}
+    .btn-primary{background:linear-gradient(90deg,var(--navy-2),var(--navy-1));color:var(--card-bg);border:none}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,41,87,0.06);color:var(--navy-1)}
 
-    .extras{display:flex;gap:10px;margin-top:10px;align-items:center}
+    .extras{display:flex;gap:10px;margin-top:10px;align-items:center;justify-content:center;flex-wrap:wrap}
     .chip{padding:7px 10px;border-radius:999px;background:linear-gradient(90deg,rgba(0,41,87,0.05),rgba(0,95,158,0.03));font-weight:800;font-size:13px;color:var(--navy-1)}
     .note{margin-top:10px;font-size:13px;color:rgba(7,36,54,0.7)}
-    footer{margin-top:12px;text-align:center;font-size:12px;color:rgba(7,36,54,0.55)}
+    footer{margin:12px auto 0;text-align:center;font-size:12px;color:rgba(7,36,54,0.55);display:block;width:100%;max-width:100%;}
 
-    /* ONLY mobile responsive: keep desktop/tablet fixed, apply responsive rules under 520px */
     @media (max-width:520px){
       html,body{padding:12px;align-items:flex-start;justify-content:flex-start}
-      .stage{max-width:100%;width:100%;}
-      .card{width:100%;max-width:100%;padding:14px;border-radius:12px}
+      .card{width:100%;padding:14px}
       .badge-40-svg{width:78px}
-      .title-row{flex-direction:column;align-items:flex-start;gap:8px}
-      .meta .item{width:100%;max-width:100%;padding:10px 12px}
+      .title-row{flex-direction:column;align-items:center;gap:8px}
+      .meta .item{width:100%;padding:10px 12px}
       .meta .item .text{font-size:15px}
       .cta{flex-direction:column;gap:10px}
-      .btn{width:100%}
-      .extras{flex-wrap:wrap}
-      .chip{font-size:13px;padding:7px 10px}
+      \.btn{width:100%}
+      .extras{justify-content:center}
     }
 
-    /* reduced motion */
-    @media (prefers-reduced-motion:reduce){
-      *{transition:none!important}
-    }
+    @media (prefers-reduced-motion:reduce){*{transition:none!important}}
   </style>
 </head>
 <body>
-  <!-- background decorative SVG: soft waves and crossed oars watermark -->
   <div class="bg-decor" aria-hidden="true">
     <svg viewBox="0 0 1440 720" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#001f3f" stop-opacity="1"/><stop offset="1" stop-color="#002957" stop-opacity="1"/></linearGradient>
+        <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#001f3f"/><stop offset="1" stop-color="#002957"/></linearGradient>
       </defs>
       <rect width="1440" height="720" fill="url(#g1)"/>
-      <!-- soft waves (lighter on navy) -->
       <g transform="translate(0,420)" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="36">
         <path d="M0 60 C200 0 400 120 600 60 C800 0 1000 120 1200 60 C1400 0 1600 120 1800 60" />
       </g>
-      <!-- crossed oars watermark centered-right -->
       <g transform="translate(980,120) rotate(12) scale(1.05)" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="6">
         <path d="M0 0 L160 80" stroke-linecap="round"/>
         <path d="M20 -20 L180 60" stroke-linecap="round"/>
@@ -139,61 +122,41 @@
   <div class="stage">
     <div class="card" role="region" aria-label="Convite Airton Corrêa Jr">
       <div class="toolbar">
-        <div style="display:flex;align-items:center;gap:12px">
-          <!-- small decorative badge (kept) -->
-          <div class="club-badge" aria-hidden="true">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Emblema decorativo">
-              <circle cx="32" cy="32" r="30" fill="#ffffff" />
-              <circle cx="32" cy="32" r="26" fill="#002957" />
-              <g transform="translate(0,0)" fill="#ffffff">
-                <path d="M18 40c6-3 12-3 18 0" opacity="0.9"/>
-                <rect x="30" y="12" width="4" height="22" rx="2"/>
-                <path d="M20 14 L44 38" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
-              </g>
-            </svg>
-          </div>
-          <div class="site"><span class="tag">Convite Digital</span></div>
-        </div>
-
-        <div style="font-size:12px;color:rgba(7,36,54,0.7);font-weight:600">06/09 • 12:00</div>
+        <div style="font-size:12px;color:rgba(7,36,54,0.7);font-weight:600">&nbsp;</div>
       </div>
 
       <div class="content">
         <div class="label">CONVITE</div>
         <div class="title-row">
           <div>
-            <div class="name" data-text="Airton Corrêa Jr">Airton Corrêa Jr</div>
-            <div class="subtitle">Aniversário — Azul e Branco</div>
+            <div class="name">Airton Corrêa Jr</div>
+            <div class="subtitle">Aniversário</div>
           </div>
-
           <div class="badge-40-wrap">
-            <img src="https://i.ibb.co/9H281XNQ/40-ANOS.webp" alt="40-ANOS" class="badge-40-svg" role="img" aria-label="40 anos" />
+            <img src="https://i.ibb.co/9H281XNQ/40-ANOS.webp" alt="40 anos" class="badge-40-svg" />
           </div>
         </div>
 
-        <div class="meta" aria-hidden="false">
-          <div class="item" role="group" aria-label="06 de Setembro">
-            <!-- Calendar SVG (navy) -->
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="#001f3f" stroke-width="1.6" fill="none"/><path d="M16 3v4M8 3v4" stroke="#001f3f" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="meta">
+          <div class="item">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="16" rx="2" stroke="#001f3f" stroke-width="1.6" fill="none"/><path d="M16 3v4M8 3v4" stroke="#001f3f" stroke-width="1.6" stroke-linecap="round"/></svg>
             <span class="text">06 de Setembro</span>
           </div>
 
-          <div class="item" role="group" aria-label="12 horas">
-            <!-- Clock SVG -->
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#001f3f" stroke-width="1.6" fill="none"/><path d="M12 7v5l3 3" stroke="#001f3f" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <div class="item">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="#001f3f" stroke-width="1.6" fill="none"/><path d="M12 7v5l3 3" stroke="#001f3f" stroke-width="1.6" stroke-linecap="round"/></svg>
             <span class="text">12 horas</span>
           </div>
 
-          <div class="item" role="group" aria-label="Condomínio Jardins Coimbra">
-            <!-- Location SVG -->
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 21s6-4.5 6-10a6 6 0 10-12 0c0 5.5 6 10 6 10z" stroke="#001f3f" stroke-width="1.6" fill="none"/><circle cx="12" cy="11" r="2.5" fill="#001f3f" fill-opacity="0.08"/></svg>
+          <div class="item">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s6-4.5 6-10a6 6 0 10-12 0c0 5.5 6 10 6 10z" stroke="#001f3f" stroke-width="1.6" fill="none"/><circle cx="12" cy="11" r="2.5" fill="#001f3f" fill-opacity="0.08"/></svg>
             <span class="text">Condomínio Jardins Coimbra</span>
           </div>
         </div>
 
         <div class="cta">
-          <a class="btn btn-primary" href="https://wa.me/5591985837117?text=Confirmo%20presen%C3%A7a%20-%20Airton%20Corr%C3%AAa%20Jr%20-%2006%2F09%2012%3A00" data-text="Confirmar no WhatsApp">Confirmar no WhatsApp</a>
-          <a class="btn btn-ghost" href="https://maps.app.goo.gl/rC6DJpF595VsRFNd7" target="_blank" rel="noopener noreferrer" data-text="Ver local">Ver local</a>
+          <a class="btn btn-primary" href="https://wa.me/5591985837117?text=Confirmo%20presen%C3%A7a%20-%20Airton%20Corr%C3%AAa%20Jr%20-%2006%2F09%2012%3A00">Confirmar no WhatsApp</a>
+          <a class="btn btn-ghost" href="https://maps.app.goo.gl/rC6DJpF595VsRFNd7" target="_blank" rel="noopener noreferrer">Ver local</a>
         </div>
 
         <div class="extras">
@@ -210,10 +173,9 @@
   </div>
 
   <script>
-    // small script to add entrance class after DOM ready (for nicer stagger)
     document.addEventListener('DOMContentLoaded', function(){
       const items = document.querySelectorAll('.meta .item');
-      items.forEach((el, i) => setTimeout(()=> el.classList.add('visible'), 90 + i*80));
+      items.forEach((el, i) => setTimeout(()=> el.classList.add('visible'), 120 + i*100));
     });
   </script>
 </body>
