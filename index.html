@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-     <meta property="og:image" content="https://siteswalle.github.io/convite/">
-     <meta name="twitter:image" content="https://siteswalle.github.io/convite/">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Convite — Airton Corrêa Jr </title>
 
   <!-- Open Graph / WhatsApp preview -->
@@ -61,7 +61,100 @@
     .title-row{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:20px;text-align:center;flex-wrap:wrap}.title-row > div{display:flex;flex-direction:column;align-items:center;justify-content:center} 
 
     .name{font-size:56px;color:var(--card-text);line-height:1.02;margin:6px 0 2px;font-weight:700;font-family:'August',system-ui,Roboto,Arial,sans-serif;position:relative;}   
-    @media (max-width:520px){.name{font-size:32px}}
+    /* iPhone-specific responsive adjustments */
+@media (max-width:428px){ /* covers iPhone Pro Max and similar */
+      html,body{padding:10px;align-items:flex-start;justify-content:flex-start}
+      .stage{max-width:420px;width:100%;padding:0}
+      .card{width:100%;max-width:420px;padding:14px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.12)}
+
+      /* label centered and slightly larger for touch previews */
+      .label{display:block;margin:0 auto 10px}
+
+      /* title row stacks but keeps name + badge centered on narrow phones */
+      .title-row{flex-direction:column;align-items:center;gap:8px}
+      .title-row > div{align-items:center}
+
+      /* typography tuned for iPhone */
+      .name{font-size:30px}
+      .subtitle{font-size:13px}
+
+      /* badge smaller on narrow phones */
+      .badge-40-svg{width:72px}
+
+      /* meta blocks full width for readability */
+      .meta{margin-top:14px}
+      .meta .item{width:100%;max-width:100%;padding:10px 12px;border-radius:10px;justify-content:flex-start}
+      .meta .item .text{font-size:15px}
+
+      /* CTAs stack and get touch-friendly size */
+      .cta{flex-direction:column;gap:10px;margin-top:14px}
+      .btn{width:100%;padding:12px 14px;font-size:15px}
+
+      /* chips centered and touch-friendly */
+      .extras{flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}
+      .chip{font-size:13px;padding:6px 10px}
+
+      /* footer adjustments */
+      footer{font-size:12px;margin-top:14px}
+
+      /* tone down heavy background on small screens */
+      .bg-decor{opacity:0.06}
+    }
+
+/* slightly tighter layout for typical modern iPhones (width: 390px) */
+@media (max-width:390px){
+      .name{font-size:28px}
+      .badge-40-svg{width:68px}
+      .meta .item .text{font-size:14px}
+      .btn{font-size:15px;padding:12px}
+}
+
+/* very small iPhones / SE (width: 375px and below) */
+@media (max-width:375px){
+      .name{font-size:26px}
+      .badge-40-svg{width:64px}
+      .meta .item{padding:8px 10px}
+      .meta .item .text{font-size:13px}
+      .chip{font-size:12px;padding:6px 8px}
+      .label{font-size:11px;padding:5px 10px}
+}
+
+      .stage{max-width:420px;width:100%;padding:0}
+      .card{width:100%;max-width:420px;padding:14px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.12)}
+
+      /* label */
+      .label{margin:0 auto 10px}
+
+      /* title row stacks but keeps name + badge centered */
+      .title-row{flex-direction:column;align-items:center;gap:8px}
+      .title-row > div{align-items:center}
+
+      /* typography scale for mobile */
+      .name{font-size:28px}
+      .subtitle{font-size:13px}
+
+      /* badge smaller on mobile */
+      .badge-40-svg{width:72px}
+
+      /* meta blocks full width */
+      .meta{margin-top:14px}
+      .meta .item{width:100%;max-width:100%;padding:10px 12px;border-radius:10px;justify-content:flex-start}
+      .meta .item .text{font-size:15px}
+
+      /* CTA becomes stacked buttons */
+      .cta{flex-direction:column;gap:10px;margin-top:14px}
+      .btn{width:100%;padding:12px 14px;font-size:15px}
+
+      /* chips centered and touch-friendly */
+      .extras{flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}
+      .chip{font-size:13px;padding:6px 10px}
+
+      /* footer adjustments */
+      footer{font-size:12px;margin-top:14px}
+
+      /* tone down heavy background on small screens */
+      .bg-decor{opacity:0.06}
+    }}
 
     .subtitle{font-size:14px;color:rgba(7,36,54,0.72);font-weight:600}
 
